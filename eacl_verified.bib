@@ -1,0 +1,670 @@
+@inproceedings{cao2022intrinsic,
+    title = "On the Intrinsic and Extrinsic Fairness Evaluation Metrics for Contextualized Language Representations",
+    author = "Cao, Yang Trista  and
+      Pruksachatkun, Yada  and
+      Chang, Kai-Wei  and
+      Gupta, Rahul  and
+      Kumar, Varun  and
+      Dhamala, Jwala  and
+      Galstyan, Aram",
+    editor = "Muresan, Smaranda  and
+      Nakov, Preslav  and
+      Villavicencio, Aline",
+    booktitle = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)",
+    month = may,
+    year = "2022",
+    address = "Dublin, Ireland",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.acl-short.62/",
+    doi = "10.18653/v1/2022.acl-short.62",
+    pages = "561--570",
+    abstract = "Multiple metrics have been introduced to measure fairness in various natural language processing tasks. These metrics can be roughly categorized into two categories: 1) extrinsic metrics for evaluating fairness in downstream applications and 2) intrinsic metrics for estimating fairness in upstream contextualized language representation models. In this paper, we conduct an extensive correlation study between intrinsic and extrinsic metrics across bias notions using 19 contextualized language models. We find that intrinsic and extrinsic metrics do not necessarily correlate in their original setting, even when correcting for metric misalignments, noise in evaluation datasets, and confounding factors such as experiment configuration for extrinsic metrics."
+}
+
+@inproceedings{goldfarbtarrant2021intrinsic,
+    title = "Intrinsic Bias Metrics Do Not Correlate with Application Bias",
+    author = "Goldfarb-Tarrant, Seraphina  and
+      Marchant, Rebecca  and
+      Mu{\~n}oz S{\'a}nchez, Ricardo  and
+      Pandya, Mugdha  and
+      Lopez, Adam",
+    editor = "Zong, Chengqing  and
+      Xia, Fei  and
+      Li, Wenjie  and
+      Navigli, Roberto",
+    booktitle = "Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 1: Long Papers)",
+    month = aug,
+    year = "2021",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2021.acl-long.150/",
+    doi = "10.18653/v1/2021.acl-long.150",
+    pages = "1926--1940",
+    abstract = "Natural Language Processing (NLP) systems learn harmful societal biases that cause them to amplify inequality as they are deployed in more and more situations. To guide efforts at debiasing these systems, the NLP community relies on a variety of metrics that quantify bias in models. Some of these metrics are intrinsic, measuring bias in word embedding spaces, and some are extrinsic, measuring bias in downstream tasks that the word embeddings enable. Do these intrinsic and extrinsic metrics correlate with each other? We compare intrinsic and extrinsic metrics across hundreds of trained models covering different tasks and experimental conditions. Our results show no reliable correlation between these metrics that holds in all scenarios across tasks and languages. We urge researchers working on debiasing to focus on extrinsic measures of bias, and to make using these measures more feasible via creation of new challenge sets and annotated test data. To aid this effort, we release code, a new intrinsic metric, and an annotated test set focused on gender bias in hate speech."
+}
+
+@inproceedings{gururangan2018artifacts,
+    title = "Annotation Artifacts in Natural Language Inference Data",
+    author = "Gururangan, Suchin  and
+      Swayamdipta, Swabha  and
+      Levy, Omer  and
+      Schwartz, Roy  and
+      Bowman, Samuel R.  and
+      Smith, Noah A.",
+    editor = "Walker, Marilyn  and
+      Ji, Heng  and
+      Stent, Amanda",
+    booktitle = "Proceedings of the 2018 Conference of the North {A}merican Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 2 (Short Papers)",
+    month = jun,
+    year = "2018",
+    address = "New Orleans, Louisiana",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/N18-2017/",
+    doi = "10.18653/v1/N18-2017",
+    pages = "107--112",
+    abstract = "Large-scale datasets for natural language inference are created by presenting crowd workers with a sentence (premise), and asking them to generate three new sentences (hypotheses) that it entails, contradicts, or is logically neutral with respect to. We show that, in a significant portion of such data, this protocol leaves clues that make it possible to identify the label by looking only at the hypothesis, without observing the premise. Specifically, we show that a simple text categorization model can correctly classify the hypothesis alone in about 67{\%} of SNLI (Bowman et. al, 2015) and 53{\%} of MultiNLI (Williams et. al, 2017). Our analysis reveals that specific linguistic phenomena such as negation and vagueness are highly correlated with certain inference classes. Our findings suggest that the success of natural language inference models to date has been overestimated, and that the task remains a hard open problem."
+}
+
+@inproceedings{mccoy2020feather,
+    title = "{BERT}s of a feather do not generalize together: Large variability in generalization across models with similar test set performance",
+    author = "McCoy, R. Thomas  and
+      Min, Junghyun  and
+      Linzen, Tal",
+    editor = "Alishahi, Afra  and
+      Belinkov, Yonatan  and
+      Chrupa{\l}a, Grzegorz  and
+      Hupkes, Dieuwke  and
+      Pinter, Yuval  and
+      Sajjad, Hassan",
+    booktitle = "Proceedings of the Third BlackboxNLP Workshop on Analyzing and Interpreting Neural Networks for NLP",
+    month = nov,
+    year = "2020",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2020.blackboxnlp-1.21/",
+    doi = "10.18653/v1/2020.blackboxnlp-1.21",
+    pages = "217--227",
+    abstract = "If the same neural network architecture is trained multiple times on the same dataset, will it make similar linguistic generalizations across runs? To study this question, we fine-tuned 100 instances of BERT on the Multi-genre Natural Language Inference (MNLI) dataset and evaluated them on the HANS dataset, which evaluates syntactic generalization in natural language inference. On the MNLI development set, the behavior of all instances was remarkably consistent, with accuracy ranging between 83.6{\%} and 84.8{\%}. In stark contrast, the same models varied widely in their generalization performance. For example, on the simple case of subject-object swap (e.g., determining that ``the doctor visited the lawyer'' does not entail ``the lawyer visited the doctor''), accuracy ranged from 0.0{\%} to 66.2{\%}. Such variation is likely due to the presence of many local minima in the loss surface that are equally attractive to a low-bias learner such as a neural network; decreasing the variability may therefore require models with stronger inductive biases."
+}
+
+@inproceedings{prabhakaran2019perturbation,
+    title = "Perturbation Sensitivity Analysis to Detect Unintended Model Biases",
+    author = "Prabhakaran, Vinodkumar  and
+      Hutchinson, Ben  and
+      Mitchell, Margaret",
+    editor = "Inui, Kentaro  and
+      Jiang, Jing  and
+      Ng, Vincent  and
+      Wan, Xiaojun",
+    booktitle = "Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)",
+    month = nov,
+    year = "2019",
+    address = "Hong Kong, China",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/D19-1578/",
+    doi = "10.18653/v1/D19-1578",
+    pages = "5740--5745",
+    abstract = "Data-driven statistical Natural Language Processing (NLP) techniques leverage large amounts of language data to build models that can understand language. However, most language data reflect the public discourse at the time the data was produced, and hence NLP models are susceptible to learning incidental associations around named referents at a particular point in time, in addition to general linguistic meaning. An NLP system designed to model notions such as sentiment and toxicity should ideally produce scores that are independent of the identity of such entities mentioned in text and their social associations. For example, in a general purpose sentiment analysis system, a phrase such as I hate Katy Perry should be interpreted as having the same sentiment as I hate Taylor Swift. Based on this idea, we propose a generic evaluation framework, Perturbation Sensitivity Analysis, which detects unintended model biases related to named entities, and requires no new annotations or corpora. We demonstrate the utility of this analysis by employing it on two different NLP models {---} a sentiment model and a toxicity model {---} applied on online comments in English language from four different genres."
+}
+
+@inproceedings{
+belrose2023leace,
+title={{LEACE}: Perfect linear concept erasure in closed form},
+author={Nora Belrose and David Schneider-Joseph and Shauli Ravfogel and Ryan Cotterell and Edward Raff and Stella Biderman},
+booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
+year={2023},
+url={https://openreview.net/forum?id=awIpKpwTwF}
+}
+
+@inproceedings{borkan2019nuanced,
+author = {Borkan, Daniel and Dixon, Lucas and Sorensen, Jeffrey and Thain, Nithum and Vasserman, Lucy},
+title = {Nuanced Metrics for Measuring Unintended Bias with Real Data for Text Classification},
+year = {2019},
+isbn = {9781450366755},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3308560.3317593},
+doi = {10.1145/3308560.3317593},
+abstract = {Unintended bias in Machine Learning can manifest as systemic differences in performance for different demographic groups, potentially compounding existing challenges to fairness in society at large. In this paper, we introduce a suite of threshold-agnostic metrics that provide a nuanced view of this unintended bias, by considering the various ways that a classifier’s score distribution can vary across designated groups. We also introduce a large new test set of online comments with crowd-sourced annotations for identity references. We use this to show how our metrics can be used to find new and potentially subtle unintended bias in existing public models.},
+booktitle = {Companion Proceedings of The 2019 World Wide Web Conference},
+pages = {491–500},
+numpages = {10},
+location = {San Francisco, USA},
+series = {WWW '19}
+}
+
+@article{damour2020underspecification,
+  author  = {Alexander D'Amour and Katherine Heller and Dan Moldovan and Ben Adlam and Babak Alipanahi and Alex Beutel and Christina Chen and Jonathan Deaton and Jacob Eisenstein and Matthew D. Hoffman and Farhad Hormozdiari and Neil Houlsby and Shaobo Hou and Ghassen Jerfel and Alan Karthikesalingam and Mario Lucic and Yian Ma and Cory McLean and Diana Mincu and Akinori Mitani and Andrea Montanari and Zachary Nado and Vivek Natarajan and Christopher Nielson and Thomas F. Osborne and Rajiv Raman and Kim Ramasamy and Rory Sayres and Jessica Schrouff and Martin Seneviratne and Shannon Sequeira and Harini Suresh and Victor Veitch and Max Vladymyrov and Xuezhi Wang and Kellie Webster and Steve Yadlowsky and Taedong Yun and Xiaohua Zhai and D. Sculley},
+  title   = {Underspecification Presents Challenges for Credibility in Modern Machine Learning},
+  journal = {Journal of Machine Learning Research},
+  year    = {2022},
+  volume  = {23},
+  number  = {226},
+  pages   = {1--61},
+  url     = {http://jmlr.org/papers/v23/20-1335.html}
+}
+
+@inproceedings{dearteaga2019bios,
+author = {De-Arteaga, Maria and Romanov, Alexey and Wallach, Hanna and Chayes, Jennifer and Borgs, Christian and Chouldechova, Alexandra and Geyik, Sahin and Kenthapadi, Krishnaram and Kalai, Adam Tauman},
+title = {Bias in Bios: A Case Study of Semantic Representation Bias in a High-Stakes Setting},
+year = {2019},
+isbn = {9781450361255},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3287560.3287572},
+doi = {10.1145/3287560.3287572},
+abstract = {We present a large-scale study of gender bias in occupation classification, a task where the use of machine learning may lead to negative outcomes on peoples' lives. We analyze the potential allocation harms that can result from semantic representation bias. To do so, we study the impact on occupation classification of including explicit gender indicators---such as first names and pronouns---in different semantic representations of online biographies. Additionally, we quantify the bias that remains when these indicators are "scrubbed," and describe proxy behavior that occurs in the absence of explicit gender indicators. As we demonstrate, differences in true positive rates between genders are correlated with existing gender imbalances in occupations, which may compound these imbalances.},
+booktitle = {Proceedings of the Conference on Fairness, Accountability, and Transparency},
+pages = {120–128},
+numpages = {9},
+keywords = {online recruiting, gender bias, compounding injustices, automated hiring, algorithmic fairness, Supervised learning},
+location = {Atlanta, GA, USA},
+series = {FAT* '19}
+}
+
+@inproceedings{garg2019ctf,
+author = {Garg, Sahaj and Perot, Vincent and Limtiaco, Nicole and Taly, Ankur and Chi, Ed H. and Beutel, Alex},
+title = {Counterfactual Fairness in Text Classification through Robustness},
+year = {2019},
+isbn = {9781450363242},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3306618.3317950},
+doi = {10.1145/3306618.3317950},
+abstract = {In this paper, we study counterfactual fairness in text classification, which asks the question: How would the prediction change if the sensitive attribute referenced in the example were different? Toxicity classifiers demonstrate a counterfactual fairness issue by predicting that "Some people are gay" is toxic while "Some people are straight" is nontoxic. We offer a metric, counterfactual token fairness (CTF), for measuring this particular form of fairness in text classifiers, and describe its relationship with group fairness. Further, we offer three approaches, blindness, counterfactual augmentation, and counterfactual logit pairing (CLP), for optimizing counterfactual token fairness during training, bridging the robustness and fairness literature. Empirically, we find that blindness and CLP address counterfactual token fairness. The methods do not harm classifier performance, and have varying tradeoffs with group fairness. These approaches, both for measurement and optimization, provide a new path forward for addressing fairness concerns in text classification.},
+booktitle = {Proceedings of the 2019 AAAI/ACM Conference on AI, Ethics, and Society},
+pages = {219–226},
+numpages = {8},
+keywords = {counterfactual fairness, fairness, robustness, text classification},
+location = {Honolulu, HI, USA},
+series = {AIES '19}
+}
+
+@article{geirhos2020shortcut,
+   title={Shortcut learning in deep neural networks},
+   volume={2},
+   ISSN={2522-5839},
+   url={http://dx.doi.org/10.1038/s42256-020-00257-z},
+   DOI={10.1038/s42256-020-00257-z},
+   number={11},
+   journal={Nature Machine Intelligence},
+   publisher={Springer Science and Business Media LLC},
+   author={Geirhos, Robert and Jacobsen, Jörn-Henrik and Michaelis, Claudio and Zemel, Richard and Brendel, Wieland and Bethge, Matthias and Wichmann, Felix A.},
+   year={2020},
+   month=Nov, pages={665–673} }
+
+
+@inproceedings{
+hase2023localization,
+title={Does Localization Inform Editing? Surprising Differences in Causality-Based Localization vs. Knowledge Editing in Language Models},
+author={Peter Hase and Mohit Bansal and Been Kim and Asma Ghandeharioun},
+booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
+year={2023},
+url={https://openreview.net/forum?id=EldbUlZtbd}
+}
+
+@InProceedings{koh2021wilds,
+  title = 	 {WILDS: A Benchmark of in-the-Wild Distribution Shifts},
+  author =       {Koh, Pang Wei and Sagawa, Shiori and Marklund, Henrik and Xie, Sang Michael and Zhang, Marvin and Balsubramani, Akshay and Hu, Weihua and Yasunaga, Michihiro and Phillips, Richard Lanas and Gao, Irena and Lee, Tony and David, Etienne and Stavness, Ian and Guo, Wei and Earnshaw, Berton and Haque, Imran and Beery, Sara M and Leskovec, Jure and Kundaje, Anshul and Pierson, Emma and Levine, Sergey and Finn, Chelsea and Liang, Percy},
+  booktitle = 	 {Proceedings of the 38th International Conference on Machine Learning},
+  pages = 	 {5637--5664},
+  year = 	 {2021},
+  editor = 	 {Meila, Marina and Zhang, Tong},
+  volume = 	 {139},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {18--24 Jul},
+  publisher =    {PMLR},
+  pdf = 	 {http://proceedings.mlr.press/v139/koh21a/koh21a.pdf},
+  url = 	 {https://proceedings.mlr.press/v139/koh21a.html},
+  abstract = 	 {Distribution shifts—where the training distribution differs from the test distribution—can substantially degrade the accuracy of machine learning (ML) systems deployed in the wild. Despite their ubiquity in the real-world deployments, these distribution shifts are under-represented in the datasets widely used in the ML community today. To address this gap, we present WILDS, a curated benchmark of 10 datasets reflecting a diverse range of distribution shifts that naturally arise in real-world applications, such as shifts across hospitals for tumor identification; across camera traps for wildlife monitoring; and across time and location in satellite imaging and poverty mapping. On each dataset, we show that standard training yields substantially lower out-of-distribution than in-distribution performance. This gap remains even with models trained by existing methods for tackling distribution shifts, underscoring the need for new methods for training models that are more robust to the types of distribution shifts that arise in practice. To facilitate method development, we provide an open-source package that automates dataset loading, contains default model architectures and hyperparameters, and standardizes evaluations. The full paper, code, and leaderboards are available at https://wilds.stanford.edu.}
+}
+
+@inproceedings{kumar2022probing,
+ author = {Kumar, Abhinav and Tan, Chenhao and Sharma, Amit},
+ booktitle = {Advances in Neural Information Processing Systems},
+ doi = {10.52202/068431-1308},
+ editor = {S. Koyejo and S. Mohamed and A. Agarwal and D. Belgrave and K. Cho and A. Oh},
+ pages = {17994--18008},
+ publisher = {Curran Associates, Inc.},
+ title = {Probing Classifiers are Unreliable for Concept Removal and Detection},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2022/file/725f5e8036cc08adeba4a7c3bcbc6f2c-Paper-Conference.pdf},
+ volume = {35},
+ year = {2022}
+}
+
+@inproceedings{kuzmin2025selective,
+    title = "Inference-Time Selective Debiasing to Enhance Fairness in Text Classification Models",
+    author = "Kuzmin, Gleb  and
+      Yadav, Neemesh  and
+      Smirnov, Ivan  and
+      Baldwin, Timothy  and
+      Shelmanov, Artem",
+    editor = "Chiruzzo, Luis  and
+      Ritter, Alan  and
+      Wang, Lu",
+    booktitle = "Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 2: Short Papers)",
+    month = apr,
+    year = "2025",
+    address = "Albuquerque, New Mexico",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.naacl-short.9/",
+    doi = "10.18653/v1/2025.naacl-short.9",
+    pages = "95--107",
+    ISBN = "979-8-89176-190-2",
+    abstract = "We propose selective debiasing {--} an inference-time safety mechanism designed to enhance the overall model quality in terms of prediction performance and fairness, especially in scenarios where retraining the model is impractical. The method draws inspiration from selective classification, where at inference time, predictions with low quality, as indicated by their uncertainty scores, are discarded. In our approach, we identify the potentially biased model predictions and, instead of discarding them, we remove bias from these predictions using LEACE {--} a post-processing debiasing method. To select problematic predictions, we propose a bias quantification approach based on KL divergence, which achieves better results than standard uncertainty quantification methods. Experiments on text classification datasets with encoder-based classification models demonstrate that selective debiasing helps to reduce the performance gap between post-processing methods and debiasing techniques from the at-training and pre-processing categories."
+}
+
+@InProceedings{liu2021jtt,
+  title = 	 {Just Train Twice: Improving Group Robustness without Training Group Information},
+  author =       {Liu, Evan Z and Haghgoo, Behzad and Chen, Annie S and Raghunathan, Aditi and Koh, Pang Wei and Sagawa, Shiori and Liang, Percy and Finn, Chelsea},
+  booktitle = 	 {Proceedings of the 38th International Conference on Machine Learning},
+  pages = 	 {6781--6792},
+  year = 	 {2021},
+  editor = 	 {Meila, Marina and Zhang, Tong},
+  volume = 	 {139},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {18--24 Jul},
+  publisher =    {PMLR},
+  pdf = 	 {http://proceedings.mlr.press/v139/liu21f/liu21f.pdf},
+  url = 	 {https://proceedings.mlr.press/v139/liu21f.html},
+  abstract = 	 {Standard training via empirical risk minimization (ERM) can produce models that achieve low error on average but high error on minority groups, especially in the presence of spurious correlations between the input and label. Prior approaches to this problem, like group distributionally robust optimization (group DRO), generally require group annotations for every training point. On the other hand, approaches that do not use group annotations generally do not improve minority performance. For example, we find that joint DRO, which dynamically upweights examples with high training loss, tends to optimize for examples that are irrelevant to the specific groups we seek to do well on. In this paper, we propose a simple two-stage approach, JTT, that achieves comparable performance to group DRO while only requiring group annotations on a significantly smaller validation set. JTT first attempts to identify informative training examples, which are often minority examples, by training an initial ERM classifier and selecting the examples with high training loss. Then, it trains a final classifier by upsampling the selected examples. Crucially, unlike joint DRO, JTT does not iteratively upsample examples that have high loss under the final classifier. On four image classification and natural language processing tasks with spurious correlations, we show that JTT closes 85% of the gap in accuracy on the worst group between ERM and group DRO.}
+}
+
+@inproceedings{
+makelov2023illusion,
+title={Is This the Subspace You Are Looking for? An Interpretability Illusion for Subspace Activation Patching},
+author={Aleksandar Makelov and Georg Lange and Atticus Geiger and Neel Nanda},
+booktitle={The Twelfth International Conference on Learning Representations},
+year={2024},
+url={https://openreview.net/forum?id=Ebt7JgMHv1}
+}
+
+@InProceedings{miller2021accuracyline,
+  title = 	 {Accuracy on the Line: on the Strong Correlation Between Out-of-Distribution and In-Distribution Generalization},
+  author =       {Miller, John P and Taori, Rohan and Raghunathan, Aditi and Sagawa, Shiori and Koh, Pang Wei and Shankar, Vaishaal and Liang, Percy and Carmon, Yair and Schmidt, Ludwig},
+  booktitle = 	 {Proceedings of the 38th International Conference on Machine Learning},
+  pages = 	 {7721--7735},
+  year = 	 {2021},
+  editor = 	 {Meila, Marina and Zhang, Tong},
+  volume = 	 {139},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {18--24 Jul},
+  publisher =    {PMLR},
+  pdf = 	 {http://proceedings.mlr.press/v139/miller21b/miller21b.pdf},
+  url = 	 {https://proceedings.mlr.press/v139/miller21b.html},
+  abstract = 	 {For machine learning systems to be reliable, we must understand their performance in unseen, out- of-distribution environments. In this paper, we empirically show that out-of-distribution performance is strongly correlated with in-distribution performance for a wide range of models and distribution shifts. Specifically, we demonstrate strong correlations between in-distribution and out-of- distribution performance on variants of CIFAR- 10 &amp; ImageNet, a synthetic pose estimation task derived from YCB objects, FMoW-WILDS satellite imagery classification, and wildlife classification in iWildCam-WILDS. The correlation holds across model architectures, hyperparameters, training set size, and training duration, and is more precise than what is expected from existing domain adaptation theory. To complete the picture, we also investigate cases where the correlation is weaker, for instance some synthetic distribution shifts from CIFAR-10-C and the tissue classification dataset Camelyon17-WILDS. Finally, we provide a candidate theory based on a Gaussian data model that shows how changes in the data covariance arising from distribution shift can affect the observed correlations.}
+}
+
+@inproceedings{
+sagawa2020groupdro,
+title={Distributionally Robust Neural Networks},
+author={Shiori Sagawa and Pang Wei Koh and Tatsunori B. Hashimoto and Percy Liang},
+booktitle={International Conference on Learning Representations},
+year={2020},
+url={https://openreview.net/forum?id=ryxGuJrFvS}
+}
+
+@inproceedings{
+veitch2021counterfactual,
+title={Counterfactual Invariance to Spurious Correlations in Text Classification},
+author={Victor Veitch and Alexander D'Amour and Steve Yadlowsky and Jacob Eisenstein},
+booktitle={Advances in Neural Information Processing Systems},
+editor={A. Beygelzimer and Y. Dauphin and P. Liang and J. Wortman Vaughan},
+year={2021},
+url={https://openreview.net/forum?id=BdKxQp0iBi8}
+}
+
+@inproceedings{ying2022visfis,
+ author = {Ying, Zhuofan and Hase, Peter and Bansal, Mohit},
+ booktitle = {Advances in Neural Information Processing Systems},
+ doi = {10.52202/068431-1241},
+ editor = {S. Koyejo and S. Mohamed and A. Agarwal and D. Belgrave and K. Cho and A. Oh},
+ pages = {17057--17072},
+ publisher = {Curran Associates, Inc.},
+ title = {VisFIS: Visual Feature Importance Supervision with Right-for-the-Right-Reason Objectives},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2022/file/6cdb2cbb2083477cca5243843d6dad06-Paper-Conference.pdf},
+ volume = {35},
+ year = {2022}
+}
+
+@inproceedings{
+kirichenko2023dfr,
+title={Last Layer Re-Training is Sufficient for Robustness to Spurious Correlations},
+author={Polina Kirichenko and Pavel Izmailov and Andrew Gordon Wilson},
+booktitle={The Eleventh International Conference on Learning Representations },
+year={2023},
+url={https://openreview.net/forum?id=Zb6c8A-Fghk}
+}
+
+@inproceedings{kiritchenko2018eec,
+    title = "Examining Gender and Race Bias in Two Hundred Sentiment Analysis Systems",
+    author = "Kiritchenko, Svetlana  and
+      Mohammad, Saif",
+    editor = "Nissim, Malvina  and
+      Berant, Jonathan  and
+      Lenci, Alessandro",
+    booktitle = "Proceedings of the Seventh Joint Conference on Lexical and Computational Semantics",
+    month = jun,
+    year = "2018",
+    address = "New Orleans, Louisiana",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/S18-2005/",
+    doi = "10.18653/v1/S18-2005",
+    pages = "43--53",
+    abstract = "Automatic machine learning systems can inadvertently accentuate and perpetuate inappropriate human biases. Past work on examining inappropriate biases has largely focused on just individual systems. Further, there is no benchmark dataset for examining inappropriate biases in systems. Here for the first time, we present the Equity Evaluation Corpus (EEC), which consists of 8,640 English sentences carefully chosen to tease out biases towards certain races and genders. We use the dataset to examine 219 automatic sentiment analysis systems that took part in a recent shared task, SemEval-2018 Task 1 `Affect in Tweets'. We find that several of the systems show statistically significant bias; that is, they consistently provide slightly higher sentiment intensity predictions for one race or one gender. We make the EEC freely available."
+}
+
+@inproceedings{braun2022equivalence,
+    title = "Does Summary Evaluation Survive Translation to Other Languages?",
+    author = "Braun, Spencer  and
+      Vasilyev, Oleg  and
+      Iskender, Neslihan  and
+      Bohannon, John",
+    editor = "Carpuat, Marine  and
+      de Marneffe, Marie-Catherine  and
+      Meza Ruiz, Ivan Vladimir",
+    booktitle = "Proceedings of the 2022 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies",
+    month = jul,
+    year = "2022",
+    address = "Seattle, United States",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.naacl-main.173/",
+    doi = "10.18653/v1/2022.naacl-main.173",
+    pages = "2425--2435",
+    abstract = "The creation of a quality summarization dataset is an expensive, time-consuming effort, requiring the production and evaluation of summaries by both trained humans and machines. The returns to such an effort would increase significantly if the dataset could be used in additional languages without repeating human annotations. To investigate how much we can trust machine translation of summarization datasets, we translate the English SummEval dataset to seven languages and compare performances across automatic evaluation measures. We explore equivalence testing as the appropriate statistical paradigm for evaluating correlations between human and automated scoring of summaries. We also consider the effect of translation on the relative performance between measures. We find some potential for dataset reuse in languages similar to the source and along particular dimensions of summary quality. Our code and data can be found at \url{https://github.com/PrimerAI/primer-research/}."
+}
+
+@inproceedings{dixon2018measuring,
+author = {Dixon, Lucas and Li, John and Sorensen, Jeffrey and Thain, Nithum and Vasserman, Lucy},
+title = {Measuring and Mitigating Unintended Bias in Text Classification},
+year = {2018},
+isbn = {9781450360128},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3278721.3278729},
+doi = {10.1145/3278721.3278729},
+abstract = {We introduce and illustrate a new approach to measuring and mitigating unintended bias in machine learning models. Our definition of unintended bias is parameterized by a test set and a subset of input features. We illustrate how this can be used to evaluate text classifiers using a synthetic test set and a public corpus of comments annotated for toxicity from Wikipedia Talk pages. We also demonstrate how imbalances in training data can lead to unintended bias in the resulting models, and therefore potentially unfair applications. We use a set of common demographic identity terms as the subset of input features on which we measure bias. This technique permits analysis in the common scenario where demographic information on authors and readers is unavailable, so that bias mitigation must focus on the content of the text itself. The mitigation method we introduce is an unsupervised approach based on balancing the training dataset. We demonstrate that this approach reduces the unintended bias without compromising overall model quality.},
+booktitle = {Proceedings of the 2018 AAAI/ACM Conference on AI, Ethics, and Society},
+pages = {67–73},
+numpages = {7},
+keywords = {algorithmic bias, fairness, machine learning, natural language processing, text classification},
+location = {New Orleans, LA, USA},
+series = {AIES '18}
+}
+
+@article{groenwold2013adjustment,
+title = "Adjustment for continuous confounders: an example of how to prevent residual confounding.",
+keywords = "Econometric and Statistical Methods: General, Geneeskunde (GENK), Geneeskunde(GENK), Medical sciences, Bescherming en bevordering van de menselijke gezondheid",
+author = "R.H.H. Groenwold and O.H. Klungel and D.G. Altman and {van der Graaf}, Y. and A.W. Hoes and K.G.M. Moons",
+year = "2013",
+language = "Undefined/Unknown",
+volume = "185",
+pages = "401--6",
+journal = "Canadian Medical Association Journal",
+issn = "0820-3946",
+publisher = "Canadian Medical Association",
+number = "5",
+}
+
+@inproceedings{
+orgad2026actionable,
+title={Position: Interpretability Can Be Actionable},
+author={Hadas Orgad and Fazl Barez and Tal Haklay and Isabelle Lee and Marius Mosbach and Anja Reusch and Naomi Saphra and Byron C Wallace and Sarah Wiegreffe and Eric Wong and Ian Tenney and Mor Geva},
+booktitle={Forty-third International Conference on Machine Learning Position Paper Track},
+year={2026},
+url={https://openreview.net/forum?id=yRUy3w5y56}
+}
+
+@misc{li2026interpretation,
+      title={Can Interpretation Predict Behavior on Unseen Data?}, 
+      author={Victoria R. Li and Jenny Kaufmann and Tian Qin and Martin Wattenberg and David Alvarez-Melis and Naomi Saphra},
+      year={2026},
+      eprint={2507.06445},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2507.06445}, 
+}
+
+@inproceedings{
+huang2025internal,
+title={Internal Causal Mechanisms Robustly Predict Language Model Out-of-Distribution Behaviors},
+author={Jing Huang and Junyi Tao and Thomas Icard and Diyi Yang and Christopher Potts},
+booktitle={Forty-second International Conference on Machine Learning},
+year={2025},
+url={https://openreview.net/forum?id=Ofa1cspTrv}
+}
+
+@article{fisher2019models,
+  author  = {Aaron Fisher and Cynthia Rudin and Francesca Dominici},
+  title   = {All Models are Wrong, but Many are Useful: Learning a Variable's Importance by Studying an Entire Class of Prediction Models Simultaneously},
+  journal = {Journal of Machine Learning Research},
+  year    = {2019},
+  volume  = {20},
+  number  = {177},
+  pages   = {1--81},
+  url     = {http://jmlr.org/papers/v20/18-760.html}
+}
+
+@inproceedings{
+jiang2020fantastic,
+title={Fantastic Generalization Measures and Where to Find Them},
+author={Yiding Jiang and Behnam Neyshabur and Hossein Mobahi and Dilip Krishnan and Samy Bengio},
+booktitle={International Conference on Learning Representations},
+year={2020},
+url={https://openreview.net/forum?id=SJgIPJBFvH}
+}
+
+@inproceedings{dziugaite2020search,
+ author = {Dziugaite, Gintare Karolina and Drouin, Alexandre and Neal, Brady and Rajkumar, Nitarshan and Caballero, Ethan and Wang, Linbo and Mitliagkas, Ioannis and Roy, Daniel M},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {H. Larochelle and M. Ranzato and R. Hadsell and M.F. Balcan and H. Lin},
+ pages = {11723--11733},
+ publisher = {Curran Associates, Inc.},
+ title = {In search of robust measures of generalization},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2020/file/86d7c8a08b4aaa1bc7c599473f5dddda-Paper.pdf},
+ volume = {33},
+ year = {2020}
+}
+
+@article{morris2019simulation,
+   title={Using simulation studies to evaluate statistical methods},
+   volume={38},
+   ISSN={1097-0258},
+   url={http://dx.doi.org/10.1002/sim.8086},
+   DOI={10.1002/sim.8086},
+   number={11},
+   journal={Statistics in Medicine},
+   publisher={Wiley},
+   author={Morris, Tim P. and White, Ian R. and Crowther, Michael J.},
+   year={2019},
+   month=Jan, pages={2074–2102} }
+
+@article{lin2013agnostic,
+   title={Agnostic notes on regression adjustments to experimental data: Reexamining Freedman’s critique},
+   volume={7},
+   ISSN={1932-6157},
+   url={http://dx.doi.org/10.1214/12-AOAS583},
+   DOI={10.1214/12-aoas583},
+   number={1},
+   journal={The Annals of Applied Statistics},
+   publisher={Institute of Mathematical Statistics},
+   author={Lin, Winston},
+   year={2013},
+   month=Mar }
+
+@misc{steering2026predicting,
+      title={Predicting Where Steering Vectors Succeed}, 
+      author={Jayadev Billa},
+      year={2026},
+      eprint={2604.15557},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2604.15557}, 
+}
+
+@inproceedings{
+lovering2021predicting,
+title={Predicting Inductive Biases of Pre-Trained Models},
+author={Charles Lovering and Rohan Jha and Tal Linzen and Ellie Pavlick},
+booktitle={International Conference on Learning Representations},
+year={2021},
+url={https://openreview.net/forum?id=mNtmhaDkAr}
+}
+
+@inproceedings{
+tan2024fractal,
+title={On the Limitations of Fractal Dimension as a Measure of Generalization},
+author={Charlie Tan and In{\'e}s Garc{\'\i}a-Redondo and Qiquan Wang and Michael M. Bronstein and Anthea Monod},
+booktitle={The Thirty-eighth Annual Conference on Neural Information Processing Systems},
+year={2024},
+url={https://openreview.net/forum?id=YO6GVPUrKN}
+}
+
+@misc{goff2014linear,
+	title = {The {Bias} from {Misspecification} of {Control} {Variables} as {Linear}},
+	url = {https://www.ssrn.com/abstract=2537916},
+	doi = {10.2139/ssrn.2537916},
+	abstract = {We characterize the asymptotic bias that arises in ordinary least squares regression when control variables have nonlinear effects on an outcome variable, but are assumed to enter the regression equation linearly. We show that this bias can be larger than that from omitting such variables altogether, or may vanish entirely despite the nonlinearity. We find that under a natural assumption an upper bound to the magnitude of the bias may be estimated from the data, and consider examples of the bias through Monte Carlo simulations.},
+	urldate = {2026-08-28},
+	author = {Goff, Leonard},
+	year = {2014},
+}
+
+@inproceedings{entangle2026probe,
+    title = "Measuring and Mitigating Shortcut Reliance in Language Models with Probe-Based Representation Entanglement",
+    author = "Singh, Divyajot",
+    editor = "T.Y.S.S., Santosh  and
+      Rodriguez, Juan Diego  and
+      de Gibert, Ona",
+    booktitle = "Proceedings of the 64th Annual Meeting of the {A}ssociation for {C}omputational {L}inguistics (Volume 4: Student Research Workshop)",
+    month = jul,
+    year = "2026",
+    address = "San Diego, California, United States",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.acl-srw.59/",
+    doi = "10.18653/v1/2026.acl-srw.59",
+    pages = "648--662",
+    ISBN = "979-8-89176-393-7",
+    abstract = "Shortcut learning remains a major obstacle to robust NLP systems: models can achieve high in-distribution accuracy by relying on surface cues that fail under distribution shift. We study whether shortcut reliance can be diagnosed and mitigated in small instruction-tuned language models using a simple representation-level quantity. We fine-tune Gemma 3 1B Instruct and Llama 3.2 1B on two synthetic sentiment shortcuts in SST-2 and one natural shortcut in MNLI based on lexical overlap. During training, we fit linear probes for the task label and the shortcut attribute at every layer and define CDRE as the absolute cosine similarity between the two probe directions. Across settings, increasing shortcut prevalence produces a sharp rise in the robustness gap between shortcut-aligned and shortcut-free test sets, and higher deep-layer CDRE tracks this degradation. At a 99{\%} shortcut ratio, Llama{'}s clean accuracy on capitalization-biased SST-2 drops from 93.2{\%} at 0{\%} bias to 49.0{\%}, while Gemma drops from 91.8{\%} to 60.2{\%}. A CDRE-regularized objective substantially improves robustness for capitalization and lexical-overlap shortcuts, but offers little benefit for a speaker-prefix shortcut whose learned directions are already nearly orthogonal. These results show that probe-derived representation entanglement provides a reliable signal of harmful shortcut reliance and offers a practical criterion for determining when shortcut mitigation is likely to be effective."
+}
+
+@misc{guardrail2026shortcuts,
+      title={Models Know Their Shortcuts: Deployment-Time Shortcut Mitigation}, 
+      author={Jiayi Li and Shijie Tang and Gün Kaynar and Shiyi Du and Carl Kingsford},
+      year={2026},
+      eprint={2604.12277},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2604.12277}, 
+}
+
+@inproceedings{nanda2025pragmatic,
+  title={A pragmatic vision for interpretability},
+  author={Nanda, Neel and Engels, Josh and Conmy, Arthur and Rajamanoharan, Senthooran and Chughtai, Bilal and McDougall, Callum and Kram{\'a}r, J{\'a}nos and Smith, Lewis},
+  booktitle={AI Alignment Forum},
+  volume={2},
+  year={2025}
+}
+
+@misc{ravuru2026unmask,
+      title={UNMASK: Discovering and Causally Verifying Spurious Shortcuts in Text Classifiers}, 
+      author={Chidaksh Ravuru and Shashank Srivastava},
+      year={2026},
+      eprint={2608.09209},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2608.09209}, 
+}
+
+@inproceedings{liu2026papermentorhumancenteredmultiagentwriting,
+    title = "{P}aper{M}entor: A Human-Centered Multi-Agent Writing Tutor for {AI} Research Papers in Overleaf",
+    author = {Liu, Jiarui  and
+      Zhang, Terry Jingchen  and
+      Faulkner, Ryan  and
+      Huang, Xuanqiang Angelo  and
+      Zouhar, Vil{\'e}m  and
+      Glandorf, Dominik  and
+      Dahlgren, Isabel  and
+      Dagli, Rishit  and
+      Chen, Yuen  and
+      Leeb, Felix  and
+      Truong, Van Q.  and
+      Pandey, Punya Syon  and
+      Bicker, Yves  and
+      Majumder, Suvajit  and
+      Jiang, Wenyuan  and
+      Qiu, Zeju  and
+      Pal Chowdhury, Sankalan  and
+      Sachan, Mrinmaya  and
+      Sch{\"o}lkopf, Bernhard  and
+      Diab, Mona T.  and
+      Jin, Zhijing},
+    editor = "Durrett, Greg  and
+      Jian, Ping",
+    booktitle = "Proceedings of the 64th Annual Meeting of the {A}ssociation for {C}omputational {L}inguistics (Volume 3: System Demonstrations)",
+    month = jul,
+    year = "2026",
+    address = "San Diego, California, United States",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.acl-demo.39/",
+    doi = "10.18653/v1/2026.acl-demo.39",
+    pages = "397--407",
+    ISBN = "979-8-89176-392-0",
+    abstract = "Expert writing feedback from experienced researchers is critical for early-career scholars to improve their manuscripts, yet high-quality feedback often remains scarce because reviewing research papers is labor-intensive. Emerging AI-powered writing assistants largely focus on grammar fixes or simulating peer review with final scores, yet they fall short of providing concrete, actionable suggestions that help students improve their papers during drafting. We present PaperMentor, a human-centered writing assistant system that delivers actionable suggestions as Overleaf-native inline comments while leaving the actual writing entirely to human authors. PaperMentor integrates an expert skill library carefully curated from established researchers' writing advice with 12 specialized agents covering different aspects of paper writing, such as formatting compliance, phrasing accuracy, and terminology consistency. In a user study (n=14), 90.6{\%} of the generated comments were rated actionable and 67.5{\%} were rated valid, significantly outperforming a GPT-5.2 baseline without the skill library. We release PaperMentor as open source for public use."
+}
+
+@InProceedings{qiu2023afr,
+  title = 	 {Simple and Fast Group Robustness by Automatic Feature Reweighting},
+  author =       {Qiu, Shikai and Potapczynski, Andres and Izmailov, Pavel and Wilson, Andrew Gordon},
+  booktitle = 	 {Proceedings of the 40th International Conference on Machine Learning},
+  pages = 	 {28448--28467},
+  year = 	 {2023},
+  editor = 	 {Krause, Andreas and Brunskill, Emma and Cho, Kyunghyun and Engelhardt, Barbara and Sabato, Sivan and Scarlett, Jonathan},
+  volume = 	 {202},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {23--29 Jul},
+  publisher =    {PMLR},
+  pdf = 	 {https://proceedings.mlr.press/v202/qiu23c/qiu23c.pdf},
+  url = 	 {https://proceedings.mlr.press/v202/qiu23c.html},
+  abstract = 	 {A major challenge to out-of-distribution generalization is reliance on spurious features — patterns that are predictive of the class label in the training data distribution, but not causally related to the target. Standard methods for reducing the reliance on spurious features typically assume that we know what the spurious feature is, which is rarely true in the real world. Methods that attempt to alleviate this limitation are complex, hard to tune, and lead to a significant computational overhead compared to standard training. In this paper, we propose Automatic Feature Reweighting (AFR), an extremely simple and fast method for updating the model to reduce the reliance on spurious features. AFR retrains the last layer of a standard ERM-trained base model with a weighted loss that emphasizes the examples where the ERM model predicts poorly, automatically upweighting the minority group without group labels. With this simple procedure, we improve upon the best reported results among competing methods trained without spurious attributes on several vision and natural language classification benchmarks, using only a fraction of their compute.}
+}
+
+@misc{wang2026prome,
+      title={ProME: Prototype-Margin Environments with Repair-Aware Selection for Group-Robust Learning}, 
+      author={Qianqian Wang and Yunshan Li and Dawei Huang and Wenwu Gong and Lili Yang},
+      year={2026},
+      eprint={2608.13190},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2608.13190}, 
+}
+
+@misc{gupta2026alignment,
+      title={How Does Alignment Tuning Shape Representations of Sycophancy and Related Cue-Induced Biases in LLMs?}, 
+      author={Prakhar Gupta and Terry Jingchen Zhang and Florent Draye and Bernhard Schölkopf and Zhijing Jin},
+      year={2026},
+      eprint={2607.18114},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2607.18114}, 
+}
+
+@misc{chua2025biasaugmentedconsistencytrainingreduces,
+      title={Bias-Augmented Consistency Training Reduces Biased Reasoning in Chain-of-Thought}, 
+      author={James Chua and Edward Rees and Hunar Batra and Samuel R. Bowman and Julian Michael and Ethan Perez and Miles Turpin},
+      year={2025},
+      eprint={2403.05518},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2403.05518}, 
+}
+
+@misc{imran2026consistencytrainingmitigatingobfuscation,
+      title={Consistency Training while Mitigating Obfuscation via Rate Matching}, 
+      author={Sohaib Imran and Prakhar Gupta and Jannes Elstner and David Demitri Africa},
+      year={2026},
+      eprint={2606.02211},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2606.02211}, 
+}
