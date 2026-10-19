@@ -1,9 +1,7 @@
-% EACL 2027 submission draft. All numbers are traceable to results/*.txt in the
-% project repository (see verify_doc.py); do not edit a number without re-running
-% the corresponding analysis. Sample sizes differ across analyses BY DESIGN and
-% are stated inline (see PROJECT.md "sample keys").
+% Every reported number traces to results/*.txt in the code repository,
+% https://github.com/prakharg55/cue_reliance (see analysis/check_numbers.py).
 \documentclass[11pt]{article}
-\usepackage[preprint]{acl}
+\usepackage[final]{acl}
 \usepackage{times}
 \usepackage{latexsym}
 \usepackage[T1]{fontenc}
@@ -47,8 +45,8 @@ varying the training cue--label correlation. Across 180 models in 10 main
 task--model settings, higher \cued{} predicts lower worst-group accuracy. In a
 separate high-seed analysis, \cued{} predicts at held-out correlation levels,
 where linear extrapolation from the assigned correlation performs worse than
-predicting the mean. Capability and placebo-edit controls argue against model
-quality and generic edit sensitivity as explanations. \cued{} also provides
+predicting the mean. Capability and placebo-edit controls show that neither model quality nor
+generic edit sensitivity explains the result. \cued{} also provides
 signal for prioritizing concept-erasure repair. Exact control shows that most of the predictive signal comes from differences
 across correlation levels. Within a
 fixed recipe, the relationship across random seeds is small and not robust.
@@ -58,32 +56,9 @@ fixed recipe, the relationship across random seeds is small and not robust.
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.97\textwidth]{fig_1.png}
-\caption{\textbf{Schematic overview.}
-We train 486 LMs across all study arms with experimentally assigned
-cue--label correlation. \cued{}, the average signed change in the decision
-score after a counterfactual cue edit (stage~1), predicts worst-group failure
-across independently trained models (stage~2), extrapolates to held-out
-training-correlation levels better than linear extrapolation from the assigned
-correlation, and helps prioritize models for LEACE repair (three of four
-specifications, \S\ref{sec:repair}).}
+\includegraphics[width=0.97\textwidth]{fig_overview.pdf}
+\caption{\textbf{Overview.} (a) Each of the 10 main populations has 18 LMs fine-tuned at six assigned cue--label correlations $\rho$. (b) \cued{} is the average signed change in the decision score after a counterfactual cue edit. (c) Worst-group accuracy is the outcome it should predict. Panels (b) and (c) show CivilComments, and Figure~\ref{fig:hero} reports the test.}
 \label{fig:concept}
-\end{figure*}
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=0.92\textwidth]{fig_hero.pdf}
-\caption{\textbf{Measured cue reliance predicts worst-group failure across
-training-correlation levels.}
-(a)~Across 180 models from 10 independently trained populations,
-counterfactual cue reliance \cued{} predicts held-out worst-group accuracy
-($\beta{=}{-}0.113$ per within-cell SD, partial $R^2{=}0.63$ beyond population
-identity).
-(b)~We fit each predictor on two training-correlation levels and predict models
-at the held-out third. \cued{}, measured on the finished model, transfers.
-Linear extrapolation from the assigned training correlation performs worse than
-predicting the mean, while a linear probe carries little signal.}
-\label{fig:hero}
 \end{figure*}
 
 Recent work in mechanistic interpretability has argued for a more pragmatic,
@@ -95,14 +70,13 @@ matters and help decide what to do about it.
 
 Fine-tuned models provide a useful setting for this question because they can
 rely on shortcut cues. These are features that correlate with the label during
-training but become misleading on some inputs \citep{geirhos2020shortcut}. For
-example, if identity terms are spuriously associated with toxic labels, a
-toxicity classifier may learn to treat an identity mention itself as evidence
-of toxicity, hurting performance on non-toxic comments that mention an identity
-\citep{borkan2019nuanced,koh2021wilds}. We ask whether a finished model's own
-behavior can reveal how much it relies on such a shortcut.
+training but become misleading on some inputs \citep{geirhos2020shortcut}. For example, if identity terms co-occur with toxic labels during training, a
+toxicity classifier may learn to read an identity mention itself as evidence of
+toxicity. It then does worse on non-toxic comments that mention an identity
+\citep{borkan2019nuanced,koh2021wilds}. Our question is whether the finished
+model itself can tell us how much it relies on such a shortcut.
 
-We ask the model directly. Given held-out inputs containing a suspected cue, we
+We ask the model directly (Fig.~\ref{fig:concept}). Given held-out inputs containing a suspected cue, we
 counterfactually edit the cue and measure the resulting change in the model's
 decision score. A larger average shift in the cue-consistent direction indicates
 greater reliance. For a classifier with decision score $s(x)$ and edited input
@@ -112,12 +86,11 @@ $\tilde{x}$, we define counterfactual cue reliance as
 \label{eq:cued}
 \end{equation}
 Once the cue and edit are specified, \cued{} requires no group labels, no access
-to training data, and no knowledge of the training recipe. Counterfactual edits
-and model-reliance measurements are well established
+to training data, and no knowledge of the training recipe. Counterfactual edits and model-reliance measurements are both well established
 \citep{garg2019ctf,prabhakaran2019perturbation,kiritchenko2018eec,
-fisher2019models}. Our contribution is not a new reliance metric. We ask whether
-this simple measurement predicts meaningful downstream failure, transfers to
-unseen training-correlation levels, and provides useful information for repair.
+fisher2019models}. We test whether this simple measurement, taken on its own from a finished model, predicts meaningful downstream failure,
+transfers to unseen training-correlation levels, and gives useful information
+for repair.
 
 To test this, we train 486 decoder LMs on two shortcut-prone tasks while
 deliberately varying the training cue--label correlation
@@ -128,6 +101,13 @@ classification with a gendered-word cue \citep{dearteaga2019bios}. Because
 $\rho$ is experimentally assigned, we can directly compare what the finished
 model reveals with simple extrapolation from the assigned training correlation.
 
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.92\textwidth]{fig_hero.pdf}
+\caption{\textbf{Measured cue reliance predicts worst-group failure across training-correlation levels.} (a)~$\beta{=}{-}0.113$ per within-cell SD of \cued{}, partial $R^2{=}0.63$ beyond population identity. This pooled relationship includes the across-level effect. Section~\ref{sec:exact} isolates the within-level estimate. (b)~Each predictor is fit on two $\rho$ levels and predicts models at the held-out third. \cued{} transfers, and linear extrapolation from $\rho$ does worse than predicting the mean.}
+\label{fig:hero}
+\end{figure*}
+
 \paragraph{Contributions.}
 We make three main findings:
 \begin{itemize}
@@ -137,31 +117,25 @@ We make three main findings:
 
     \item \textbf{Cue reliance predicts shortcut failure.}
     Across 180 models in 10 task--model settings, higher \cued{} predicts lower
-    worst-group accuracy. In a separate high-seed analysis, \cued{} continues
-    to predict at held-out training-correlation levels, where linear
-    extrapolation from the assigned correlation performs worse than predicting
-    the mean. Capability and placebo-edit controls argue against general model
-    quality and generic edit sensitivity as explanations
-    (\S\ref{sec:prediction}--\ref{sec:validity}).
+    worst-group accuracy. The prediction also holds at held-out training-correlation levels in a separate high-seed analysis. There, linear extrapolation from the assigned correlation performs worse than predicting the mean. Neither general model quality nor generic edit sensitivity explains the result (\S\ref{sec:prediction}--\ref{sec:validity}).
 
     \item \textbf{Cue reliance provides signal for repair.}
-    Under a common evaluation of five post-hoc repairs, LEACE improves mean
-    worst-group accuracy in all six settings tested, while hard directional
-    ablation can be harmful. \cued{} also provides signal for prioritizing
-    models for LEACE repair (\S\ref{sec:repair}).
+    We compare five post-hoc repairs under one protocol. LEACE improves mean
+    worst-group accuracy in all six settings tested, and hard directional
+    ablation can be harmful. \cued{} also provides signal for choosing which
+    models to repair with LEACE (\S\ref{sec:repair}).
 
     \item \textbf{Most of the predictive signal is across correlation levels.}
     Treating the discrete assigned correlation as a linear control initially
-    made \cued{} appear predictive beyond the training correlation. Exact
-    control removes this apparent significant effect. Among models trained with
+    made \cued{} appear predictive beyond the training correlation. Exact control removes that apparent effect. Among models trained with
     the same recipe but different random seeds, the remaining relationship is
     small and statistically fragile (\S\ref{sec:exact}).
 \end{itemize}
 
-Together, these results validate \cued{} as a simple per-model audit rather than
-introduce a new reliance metric. In the controlled populations we study,
-measuring what a finished model uses can be more informative about shortcut
-failure than simple extrapolation from the assigned training correlation.
+These results validate \cued{} as a simple per-model audit. In the controlled
+populations we study, measuring what a finished model uses can tell us more
+about shortcut failure than extrapolating from the assigned training
+correlation.
 
 
 \section{Related Work}
@@ -178,11 +152,11 @@ sensitive or spurious features
 model and mitigate them at deployment time, while \citet{ravuru2026unmask}
 discover and causally verify text shortcuts for annotation-free debiasing. Related work also studies cue reliance through hidden-state bias
 directions and probe-based representation entanglement
-\citep{gupta2026alignment,entangle2026probe}, and its mitigation via consistency training \citep{chua2025biasaugmentedconsistencytrainingreduces,imran2026consistencytrainingmitigatingobfuscation}. Our focus is different. We test
-whether a finished-model reliance score predicts worst-group accuracy across
-independently trained models and at held-out assigned cue--label correlations.
-This matters because model-side bias measurements do not necessarily predict
-downstream bias
+\citep{gupta2026alignment,entangle2026probe}, and its mitigation via consistency training \citep{chua2025biasaugmentedconsistencytrainingreduces,imran2026consistencytrainingmitigatingobfuscation}. We ask a different question, namely whether a reliance score read off a
+finished model predicts worst-group accuracy across independently trained
+models and at held-out assigned cue--label correlations. The question is open
+because model-side bias measurements do not necessarily predict downstream
+bias
 \citep{goldfarbtarrant2021intrinsic,cao2022intrinsic}.
 
 \paragraph{Predicting robustness across models.}
@@ -192,10 +166,9 @@ whether model-side measurements predict generalization across model populations
 \citep{jiang2020fantastic,li2026interpretation}. Such comparisons can be driven
 by the design factors used to generate the population
 \citep{dziugaite2020search}, while in-distribution accuracy can itself predict
-OOD accuracy \citep{miller2021accuracyline}. Related work also predicts
-per-example OOD behavior from internal causal features
-\citep{huang2025internal}. We instead assign cue--label correlation directly
-and test prediction at held-out levels of that assignment.
+OOD accuracy \citep{miller2021accuracyline}. Other work predicts per-example OOD behavior from internal causal features
+\citep{huang2025internal}. We assign the cue--label correlation directly and
+test prediction at held-out levels of that assignment.
 
 \paragraph{Repair.}
 Worst-group robustness and post-hoc repairs are well studied
@@ -204,26 +177,22 @@ belrose2023leace}. Model-side measurements can guide selective debiasing,
 steering, and predictions of fine-tuning biases
 \citep{kuzmin2025selective,steering2026predicting,lovering2021predicting},
 while localization does not reliably identify editing layers
-\citep{hase2023localization}. Our question is at the model level. We ask
-whether a pre-repair score can rank independently trained models by the benefit
-they receive from the same repair. Concurrent work also studies repair-aware model selection using group-annotated
-validation performance \citep{wang2026prome}. Our setting instead asks whether
-a pre-repair, group-label-free reliance score can guide repair allocation across
-independently trained models.
+\citep{hase2023localization}. We work at the model level and ask whether a pre-repair score can rank
+independently trained models by how much they gain from the same repair. Concurrent work also studies repair-aware model selection using group-annotated
+validation performance \citep{wang2026prome}. Our reliance score needs no group labels.
 
 
-\section{Experimental Design}
+\section{Methods}
 \label{sec:design}
 
-The purpose of the design is to compare measuring the finished model with
-simple extrapolation from the experimentally assigned training correlation.
-This requires a population in which the shortcut signal is experimentally
-assigned rather than inferred.
+The design compares two ways of predicting failure. One measures the finished model. The other extrapolates from its assigned training correlation. That comparison
+needs a population in which we assign the shortcut signal instead of inferring
+it.
 
 \paragraph{Populations.}
 Each population \emph{cell} is one task--model pair. Within each cell, we vary
 the assigned cue--label correlation
-$\rho \in \{0.55,0.65,0.75,0.85,0.92,0.97\}$ and random seed. This creates
+$\rho \in \{0.55,\allowbreak 0.65,\allowbreak 0.75,\allowbreak 0.85,\allowbreak 0.92,\allowbreak 0.97\}$ and random seed. This creates
 models trained on the same task but exposed to shortcut signals of different
 known strengths. The main analysis has 10 cells from two tasks crossed with five model
 configurations: Qwen2.5-0.5B/1.5B, Pythia-410m/1.4b, and OLMo-2-1B.
@@ -239,21 +208,35 @@ on that choice. Across the main and auxiliary study arms, we train 486 models
 in total. Full training details are in Appendix~\ref{app:config}.
 
 \paragraph{Tasks and edits.}
-CivilComments uses 32 unambiguous identity terms as the cue, in the
-identity-term tradition of \citet{dixon2018measuring}
-(Appendix~\ref{app:lexicons}), and the edit
-removes it (term $\rightarrow$ ``people''). Bios uses gendered words, and the
+CivilComments uses 32 unambiguous identity terms as the cue (Appendix~\ref{app:lexicons}), following the identity-term tradition of \citet{dixon2018measuring}. The edit replaces each identity term with ``people''. Bios uses gendered words, and the
 edit swaps gender, applied only in the well-defined male$\rightarrow$female
 direction. The two edits are different operations that measure the same target quantity
 (Eq.~\ref{eq:cued}), and we verify in \S\ref{sec:validity} that what they
 measure is cue-specific. Appendix~\ref{app:edits} audits both edits (coverage,
 minimality, and the reason the bios swap is used in one direction only).
 
+\paragraph{Measurement.}
+Each input is scored with a fixed prompt. For CivilComments it is
+\texttt{Comment:\ \{text\}}, a line break, \texttt{Question:\ Is this comment
+toxic?}, a line break, and \texttt{Answer:}. For Bios the first two lines are
+\texttt{Bio:\ \{text\}} and \texttt{Question:\ Is this person a professor or a
+physician?}. The decision score $s(x)$ is the logit of the answer token \texttt{A} minus the
+logit of \texttt{B} at the last position. \texttt{A} stands for toxic or
+professor and \texttt{B} for non-toxic or physician. Each token has a leading
+space and is looked up in the model's own tokenizer. \cued{} averages
+$s(x)-s(\tilde{x})$ over 300 cue-containing texts drawn from the same held-out
+pool as the evaluation groups. These texts never appear in training. They may
+partially overlap the evaluation sample, and no labels are used in computing
+\cued{}.
+
 \paragraph{Outcome.}
 We evaluate worst-group accuracy over the four
 $(\text{label} \times \text{cue-present})$ groups. These groups separate cases
-where the cue agrees with the label from those where it is misleading. We use
-a non-overlapping, deduplicated held-out split of 796--800 texts per group and
+where the cue agrees with the label from those where it is misleading. For
+Bios, every pooled bio contains gendered words and cue-present means the bio
+is male, so the four groups are profession $\times$ gender. Worst-group
+accuracy uses all four groups, while the edit is applied only in the
+male$\rightarrow$female direction. We use a non-overlapping, deduplicated held-out split of 796--800 texts per group and
 sample 400 per group for each evaluation. Our grouping is coarser than the
 WILDS 16-cell definition \citep{koh2021wilds}, so the absolute numbers are not
 comparable to that leaderboard.
@@ -272,10 +255,7 @@ and Appendix~\ref{app:iv} gives the additional instrumental-variable analysis.
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.96\textwidth]{fig_population.pdf}
-\caption{\textbf{No single family, task, or scale carries the result.} The
-reliance--failure relationship holds in every population cell separately
-(per-cell $r \in [-0.94, -0.68]$, all $p < 0.002$). Each point
-is one fine-tuned model, shaded by its assigned $\rho$.}
+\caption{\textbf{The relationship holds in every population cell.} Each panel is one cell, and each point is one fine-tuned model shaded by its assigned $\rho$ (per-cell $r$ from $-0.94$ to $-0.68$, all $p < 0.002$). Because the points span the $\rho$ levels, these correlations include the across-level effect (\S\ref{sec:exact}).}
 \label{fig:population}
 \end{figure*}
 
@@ -291,19 +271,17 @@ $0.63$. The relationship also holds in every cell on its own
 (Fig.~\ref{fig:population}), so it is not an artifact of pooling.
 
 \paragraph{Out-of-regime extrapolation.}
-A natural objection is that, within a designed population, both reliance and
-failure are consequences of the assigned $\rho$. The sharper test is extrapolation. We fit the predictor on two $\rho$ levels
+Within a designed population, both reliance and failure are consequences of
+the assigned $\rho$. A sharper test is to predict a correlation level the
+predictor has never seen. We fit the predictor on two $\rho$ levels
 and predict models from the held-out third (high-seed arm, $n{=}135$, cell
 fixed effects). \cued{} transfers to the held-out level, while simple extrapolation from the
 assigned correlation does not (Fig.~\ref{fig:hero}b, Table~\ref{tab:oor}).
 Extrapolating $\rho$ itself performs worse than predicting the mean
 ($R^2{=}{-}0.18$). The reason is that $\rho$'s effect on worst-group accuracy
 is strongly nonlinear (\S\ref{sec:exact}), so a line fitted on two levels
-misplaces the third. Because \cued{} is measured after training, it can reflect how strongly the
-finished model came to rely on the cue. A nearest-level step extrapolation, the natural alternative with two observed
-levels, also performs worse than predicting the mean ($R^2{=}{-}0.14$).
-Importantly, this result is mainly about placing models across correlation
-levels. \cued{} does not consistently rank individual models within a held-out
+misplaces the third. A nearest-level step extrapolation, the natural alternative with two observed levels, also performs worse than predicting the mean ($R^2{=}{-}0.14$). Because \cued{} is measured after training, it can reflect how strongly the finished model came to rely on the cue.
+This result is mainly about placing models across correlation levels. \cued{} does not consistently rank individual models within a held-out
 level (per-fold $R^2$ of $-0.85$, $+0.69$, and $+0.19$). We study fixed-recipe
 ranking directly in \S\ref{sec:exact}.
 
@@ -320,11 +298,11 @@ The prediction would be uninformative if \cued{} merely restated model
 competence or generic sensitivity to edits. We test both alternatives directly.
 Within our controlled populations, neither accounts for the result.
 
-\paragraph{Not capability.}
+\paragraph{Capability control.}
 In-distribution competence predicts robustness across models
-\citep{miller2021accuracyline}, and in our own attempt to extend this study to
-public toxicity classifiers, capability explained nearly all of the variation (Spearman $+0.98$, see
-Limitations). Overall accuracy is not a clean capability control within our population
+\citep{miller2021accuracyline}. In our own attempt to extend this study to
+public toxicity classifiers, capability explained nearly all of the variation
+(Spearman $+0.98$, see Limitations). Overall accuracy is not a clean capability control within our population
 because it already includes the worst group. We therefore build a control from
 non-overlapping example sets. We predict
 accuracy on the groups where the cue disagrees with the label from \cued{}
@@ -337,21 +315,17 @@ $R^2 = +0.25$. The capability control itself adds no detectable predictive value
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.9\columnwidth]{fig_placebo.pdf}
-\caption{\textbf{The measurement is about the cue, not about editing.} The
-identical edit applied to 32 frequency-matched non-cue words produces shifts
-$40\times$ smaller (a) and carries no predictive signal (b). On the same 18
-models, the placebo shift is uncorrelated with worst-group accuracy
-($r{=}{+}0.08$) while \cued{} predicts it at $r{=}{-}0.905$.}
+\caption{\textbf{Placebo edits barely move the model and predict nothing.} The same edit applied to 32 frequency-matched non-cue words shifts the decision score $40\times$ less (a). Across the same 18 models, the placebo shift does not track worst-group accuracy ($r{=}{+}0.08$), while \cued{} does ($r{=}{-}0.905$) (b).}
 \label{fig:placebo}
 \end{figure}
 
-\paragraph{Not edit sensitivity.}
+\paragraph{Placebo-edit control.}
 We repeat the same procedure using 32 frequency-matched non-cue words. These
 placebo edits move the model about $40\times$ less than the actual cue edits
 and do not predict worst-group accuracy
 ($r{=}{+}0.08$ versus $r{=}{-}0.905$ for \cued{},
-Fig.~\ref{fig:placebo}). The result is therefore specific to changing the
-suspected cue rather than to editing text in general.
+Fig.~\ref{fig:placebo}). So the measurement responds to the cue itself. Editing text in general does
+not produce it.
 
 \paragraph{Reliable measurement.}
 Split-half reliability of \cued{} across models is $0.993$
@@ -362,8 +336,7 @@ by measurement noise alone.
 \section{Repair: What Works, and for Whom}
 \label{sec:repair}
 
-A useful audit should not only predict failure but also inform what to do
-about it.
+A useful audit should predict failure and also say what to do about it.
 
 \begin{table}[t]
 \centering\small
@@ -380,13 +353,7 @@ Pythia-bios  & $+.039$ & $+.059$ & $+.060$ & $+.128$ & $+.051$ \\
 OLMo-bios    & $+.049$ & $+.052$ & $+.038$ & $+.084$ & $+.024$ \\
 \bottomrule
 \end{tabular}
-\caption{\textbf{LEACE improves mean worst-group accuracy in every cell, while
-hard ablation can be strongly harmful.} Mean $\Delta$ worst-group accuracy for
-five post-hoc repairs ($n{=}18$/cell): fixed-relative-depth directional
-ablation, prospectively selected-layer ablation, LEACE erasure, DFR-style
-group-balanced head refit, and AFR-style reweighting (class labels only, no
-group labels). DFR gives the largest mean gain in every cell but requires group
-labels.}
+\caption{\textbf{LEACE improves mean worst-group accuracy in every cell, while hard ablation can be strongly harmful.} Mean change in worst-group accuracy ($n{=}18$/cell) for five post-hoc repairs: fixed-depth directional ablation, ablation at a prospectively selected layer, LEACE erasure, DFR-style group-balanced head refit, and AFR-style reweighting. Only DFR uses group labels.}
 \label{tab:repair}
 \end{table}
 
@@ -397,16 +364,11 @@ directional ablation is very harmful in the civil cells of two of three
 families, and it gets worse with scale ($-0.385$ at Pythia-1.4b, $-0.344$ at
 Qwen-1.5B). This matches known failure modes of subspace interventions,
 namely damage to task-relevant features \citep{kumar2022probing} and
-off-manifold artifacts \citep{makelov2023illusion}. Third, DFR is the
-strongest repair everywhere, but it needs group labels, and our variant
-refits on training data (the held-out split is our only evaluation), which
-may overstate its performance relative to \citet{kirichenko2023dfr}. AFR,
-which uses class labels but no group labels, is near zero. LEACE's worst-group gains do not come with large overall-accuracy losses. Post-LEACE
-overall accuracy stays within $0.03$ of label-dependent DFR's in every cell,
-while the cells where ablation is harmful also show large overall-accuracy
-drops ($0.63$--$0.69$ vs.\
-$0.77$--$0.79$ under LEACE in the same cells,
-Appendix~\ref{app:repaircost}).
+off-manifold artifacts \citep{makelov2023illusion}. Third, DFR is the strongest repair everywhere, but it needs group labels. Our variant refits on training data, since the held-out split is our only evaluation. This may overstate its performance relative to \citet{kirichenko2023dfr}. AFR,
+which uses class labels but no group labels, is near zero. LEACE's worst-group gains do not come with large overall-accuracy losses. Post-LEACE overall accuracy stays within $0.03$ of label-dependent DFR's in
+every cell. The cells where ablation is harmful also show large
+overall-accuracy drops ($0.63$--$0.69$ vs.\ $0.77$--$0.79$ under LEACE in the
+same cells, Appendix~\ref{app:repaircost}).
 
 \paragraph{Targeting: whom does erasure help?}
 In practice, a practitioner with many fine-tuned models and a limited repair
@@ -414,8 +376,8 @@ budget must decide which models to treat. \cued{} provides signal for this
 decision. It predicts the gain from LEACE under exact $\rho$ control in three
 of four specifications (Table~\ref{tab:target}, Fig.~\ref{fig:target}).
 The strictest specification falls to $p{=}0.066$, and some of the signal
-overlaps with baseline headroom. We therefore treat this as useful targeting
-signal rather than a definitive fixed-recipe ranking result.
+overlaps with baseline headroom. We therefore read this as useful targeting signal. It does not establish a
+definitive fixed-recipe ranking.
 
 \paragraph{Allocation under a repair budget.}
 We next ask whether this signal is useful for selecting models in practice.
@@ -462,12 +424,7 @@ include cell$\times\rho$ (stratum) fixed effects, $n{=}135$.}
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.9\columnwidth]{fig_trap.pdf}
-\caption{\textbf{Why linear control of $\rho$ is unreliable.}
-(a)~The assigned correlation's effect on worst-group accuracy is flat at low
-$\rho$ and steep at high $\rho$ ($F(4,165){=}13.4$).
-(b)~The same coefficient under four controls for $\rho$. The apparent
-significance after linear control disappears under exact control, consistent
-with residual $\rho$ variation left by the linear specification.}
+\caption{\textbf{Why linear control of $\rho$ is unreliable.} (a)~The effect of $\rho$ on worst-group accuracy is flat at low $\rho$ and steep at high $\rho$ ($F(4,165){=}13.4$). (b)~The \cued{} coefficient under four controls for $\rho$. Its apparent significance under linear control disappears under exact control.}
 \label{fig:trap}
 \end{figure}
 
@@ -476,17 +433,14 @@ Our own first analysis, mirroring common practice, entered $\rho$ linearly and
 made \cued{} appear strongly predictive beyond the assigned training
 correlation. But $\rho$'s
 effect is strongly nonlinear
-($F(4,165){=}13.4$, $p{=}1.7{\times}10^{-9}$, Fig.~\ref{fig:trap}a), so
-linear control leaves residual $\rho$ variance that any correlated
-measurement can absorb, the classic residual-confounding problem
-\citep{groenwold2013adjustment}. Table~\ref{tab:ladder} and Fig.~\ref{fig:trap}b show the pattern. The coefficient is significant under no control and under
+($F(4,165){=}13.4$, $p{=}1.7{\times}10^{-9}$, Fig.~\ref{fig:trap}a). Linear control therefore leaves residual $\rho$ variance that any correlated measurement can absorb. This is the classic residual-confounding problem \citep{groenwold2013adjustment}. Table~\ref{tab:ladder} and Fig.~\ref{fig:trap}b show the pattern. The coefficient is significant under no control and under
 linear control, but not under indicators.
 With a discrete assigned factor, saturated adjustment uses four additional
-degrees of freedom \citep{lin2013agnostic}, whereas a linearly misspecified control
-can bias the coefficient of interest more than omitting the control entirely
-\citep{goff2014linear}. We therefore avoid a linear specification for this discrete assigned factor. The population-of-models literature contains both practices today.
-\citet{jiang2020fantastic} condition exactly, computing rank correlations
-within fixed settings of every other design factor, while recent work in the
+degrees of freedom \citep{lin2013agnostic}. A linearly misspecified control, by
+contrast, can bias the coefficient of interest more than omitting the control
+entirely \citep{goff2014linear}. For this discrete assigned factor, we avoid a linear specification. The population-of-models literature contains both practices today.
+\citet{jiang2020fantastic} condition exactly and compute rank correlations
+within fixed settings of every other design factor. More recent work in the
 same genre controls its design grid with partial correlations on residuals
 \citep{tan2024fractal}. 
 
@@ -502,8 +456,7 @@ random-seed ranking within a fixed recipe as established.
 The direction is nevertheless fairly consistent across strata. A conservative
 equivalence analysis rules out only effects larger than about $14\%$ of the
 between-correlation effect, so the data also do not support a tight equivalence
-claim. In short, fixed-recipe differences carry a small and statistically
-fragile signal. Most of \cued{}'s predictive power comes from placing models
+claim. Fixed-recipe differences therefore carry a small and statistically fragile signal. Most of \cued{}'s predictive power comes from placing models
 across training-correlation levels without observing the assigned correlation.
 
 \paragraph{``Used'' vs.\ ``decodable,'' scoped.}
@@ -521,12 +474,12 @@ efficiency.
 
 \paragraph{Automatic cue discovery.}
 So far the audit assumes that the suspected cue is known. On CivilComments, we
-test how much this requirement can be relaxed. Replacing the oracle lexicon with the top-20 PMI tokens from each model's own
-training draw using add-100 smoothing \citep{gururangan2018artifacts} yields cue
-sets that overlap the oracle by only $1.4/20$ words on average. Reliance measured
-with these discovered cues still predicts worst-group accuracy
-($r=-0.55/-0.60/-0.63$ across civil cells). This shows that the result is not
-specific to the hand-written oracle lexicon.
+test how much this requirement can be relaxed. We replace the oracle lexicon with the top-20 PMI tokens from each model's own
+training draw, using add-100 smoothing \citep{gururangan2018artifacts}. The
+discovered cue sets overlap the oracle by only $1.4/20$ words on average, yet
+reliance measured with them still predicts worst-group accuracy
+($r=-0.55/-0.60/-0.63$ across civil cells). So the result does not depend on
+the hand-written lexicon. Cue discovery does, however, use the model's training draw, which the audit itself does not.
 
 \paragraph{Label efficiency.}
 A second practical advantage is that \cued{} does not require group-labeled
@@ -542,52 +495,47 @@ sets. Appendix~\ref{app:label} gives the full comparison. Appendix~\ref{app:ew} 
 
 Studies of this kind often explain model performance using the design factors
 that generated the model population
-\citep{morris2019simulation,jiang2020fantastic}. Our results show a
-complementary view. At held-out training-correlation levels, measuring the
+\citep{morris2019simulation,jiang2020fantastic}. Our results offer a complementary view. At held-out training-correlation levels, measuring the
 finished model can be more informative than simple extrapolation from the
-assigned correlation. This does not mean that the training correlation is
-uninformative. Its effect on worst-group accuracy is strongly nonlinear, so
-simple extrapolation can fail while \cued{} measures the reliance expressed by
-the trained model. Combined with the repair results, this provides a concrete
-example of actionable interpretability \citep{orgad2026actionable}. The
-measurement predicts a downstream failure and provides signal for deciding
-which models to repair. Exact control also clarifies the scope of the result.
+assigned correlation. The training correlation still matters, but its effect on worst-group accuracy is strongly nonlinear. Simple extrapolation can therefore fail, while
+\cued{} measures the reliance the trained model actually expresses. Combined with the repair results, this provides a concrete
+example of actionable interpretability \citep{orgad2026actionable}. The measurement predicts a downstream failure and informs the choice of which models to repair. Exact control also clarifies the scope of the result.
 Most of \cued{}'s predictive power is across correlation levels, while the
-relationship within a fixed recipe is small and statistically fragile.
+relationship within a fixed recipe is small and not robust.
 
 
 \section{Conclusion}
 
-We test whether counterfactual cue reliance can serve as an actionable audit of
-a finished model. Across controlled populations of fine-tuned classifiers,
-higher \cued{} predicts lower worst-group accuracy. In a separate high-seed
-analysis, it continues to predict at held-out training-correlation levels,
-where simple extrapolation from the assigned correlation performs poorly.
-\cued{} also provides signal for prioritizing models for LEACE repair. Exact
-control clarifies the scope of the result. Most of the predictive signal is
-across correlation levels, while differences across random seeds within a
-fixed recipe are small and statistically fragile. In these settings, measuring
-what the finished model uses is more informative about shortcut failure than
-simple extrapolation from the assigned training correlation.
+This paper asked whether counterfactual cue reliance can serve as an
+actionable audit of a finished model. In the controlled populations we trained, the answer is yes, within a scope we can state precisely. Higher \cued{} predicts
+lower worst-group accuracy. In a separate high-seed analysis, the prediction
+carries over to held-out training-correlation levels, where simple
+extrapolation from the assigned correlation performs poorly. \cued{} also gives a useful signal for choosing which models to repair with LEACE. Exact control sets the scope. Most of the predictive signal is across correlation levels,
+and differences across random seeds within a fixed recipe are small and
+statistically fragile. For a practitioner with a fine-tuned classifier and a
+suspected cue, the lesson is simple. In these settings, what the finished
+model does with the cue tells you more about shortcut failure than
+extrapolating from the correlation it was trained on.
 
+\noindent Supplementary code is available at:\\
+\url{https://github.com/prakharg55/cue_reliance}.
 
 \section*{Limitations}
 
 \paragraph{Scope and generalization.}
 We study two English binary-classification tasks, decoder LMs of
 0.4--1.5B parameters, and lexical cues. Structural or distributed cues are
-outside our scope. The result also does not extend directly to heterogeneous
-public checkpoints: across eight public toxicity classifiers, capability
+outside our scope. The result also does not extend directly to heterogeneous public checkpoints. Across eight public toxicity classifiers, capability
 dominated and \cued{} was not predictive ($r{=}{+}0.06$). Whether reliance
-can be separated from capability across uncontrolled models remains open.
+can be separated from capability across uncontrolled models remains open. The audit is label-free, but it still assumes a candidate cue and a meaningful counterfactual edit. Whether the result holds for substantially
+larger instruction-tuned models is untested.
 
 \paragraph{Prediction limits.}
 At fixed $\rho$, the relationship across random seeds is small and not
 robustly established (permutation $p{=}.061$, confirmation-half $p{=}.141$).
 The out-of-regime analysis tests only linear and nearest-level extrapolation
-from two observed $\rho$ levels. Stronger recipe-side predictors and
-alternative perturbation or attribution summaries remain untested. Our probe
-baseline measures cue decodability, not task--cue direction entanglement.
+from two observed $\rho$ levels. With only two observed levels per fold, any nonlinear extrapolation requires an assumed shape that the data cannot determine. Stronger theory-motivated recipe predictors remain an open comparison. Alternative perturbation or attribution summaries also remain
+untested. Our probe baseline measures cue decodability. It does not measure task--cue direction entanglement.
 
 \paragraph{Repair limits.}
 Our DFR implementation refits on training data and may therefore overstate
@@ -608,9 +556,7 @@ references. We do not infer demographic attributes of any person, and we
 perform no dialect inference. Toxic example texts appear only in aggregate
 statistics. The $\rho$-controlled populations intentionally train models with
 amplified spurious behavior. All such models exist only as measurement logs,
-and none is released. \cued{} is an audit measurement, and we caution against
-interpreting low \cued{} alone as certification of fairness, particularly
-given its failure to separate from capability on uncontrolled public models.
+and none is released. \cued{} is an audit measurement. We caution against interpreting low \cued{} alone as certification of fairness, especially since it did not separate from capability on uncontrolled public models.
 
 \section*{Acknowledgments}
 This material is based in part upon work supported
@@ -627,7 +573,7 @@ Resources used in preparing this research project were provided, in part, by the
 F.D. acknowledges support through a fellowship from the Hector Fellow Academy.
 We thank Jiarui Liu, Andrew Kim, and the other key developers of PaperMentor \citep{liu2026papermentorhumancenteredmultiagentwriting}, which provides mentorship and valuable suggestions in polishing this paper after the first draft by the authors. We further acknowledge the crucial work of AdminBot for administrative support that streamlined our research workflow.
 
-\bibliography{eacl_verified}
+\bibliography{references}
 
 \appendix
 
@@ -640,8 +586,9 @@ figures assert their plotted values against the same captured results. The
 pre-specified primary analysis of \S\ref{sec:exact} was locked before the
 confirmation half of the high-seed data was analyzed. Trained weights were
 not retained, so re-analysis of the models themselves requires retraining
-from the configuration in Appendix~\ref{app:config}. The analysis code and
-logs will be released.
+from the configuration in Appendix~\ref{app:config}. The training code, the
+analysis code and the logs of all trained models are in the repository linked
+in the Conclusion.
 
 \section{Experimental Detail}
 \label{app:setup}
@@ -668,10 +615,19 @@ recipe on an instruct base. Families: Qwen2.5 (0.5B, 1.5B), Pythia (410m,
 1.4b), OLMo-2 (1B). \cued{} is estimated on 300 held-out texts that contain
 the cue per model.
 
+Base checkpoints are Qwen2.5-0.5B, Qwen2.5-1.5B, and Qwen2.5-0.5B-Instruct,
+Pythia-410m and Pythia-1.4b, and OLMo-2-0425-1B, all from the Hugging Face
+Hub under the \texttt{Qwen}, \texttt{EleutherAI}, and
+\texttt{allenai} organizations. Each run used a single NVIDIA A100 GPU. The
+490 scheduler jobs behind the reported results, covering the 486 fine-tuning
+runs and the public-classifier evaluations, total 83 GPU-hours, with a median
+of 7.5 minutes per job. Software: PyTorch 2.9.0, PEFT 0.19.1, scikit-learn
+1.6.1, and statsmodels 0.14.2. The Transformers version used at training time
+was not recorded.
+
 \subsection{Counterfactual Edit Audit}
 \label{app:edits}
-Realized correlations of actual training draws, with cue presence re-detected
-from the text rather than the sampling key. At $\rho{=}0.55$ the realized
+We audited the realized correlations of actual training draws, re-detecting cue presence from the text itself instead of from the sampling key. At $\rho{=}0.55$ the realized
 $P(\text{toxic}\mid\text{cue})$ and $P(\text{toxic}\mid\text{no cue})$ are
 $0.550$ and $0.450$, at $\rho{=}0.97$ they are $0.970$ and $0.030$, and label
 balance is $0.500$ in both audited draws.
@@ -815,6 +771,7 @@ SD of worst-group accuracy.}
 
 \begin{table}[t]
 \centering\small
+\setlength{\tabcolsep}{4.5pt}
 \begin{tabular}{lrr}
 \toprule
 specification & $\beta$ & $p$ \\
@@ -871,6 +828,14 @@ means effects larger than the margin are rejected at $\alpha{=}.05$.}
 This section supports \S\ref{sec:repair} with the overall-accuracy cost of
 each repair and the budgeted allocation experiment.
 
+\paragraph{Intervention layers.}
+LEACE and the fixed-depth ablation act at layer
+$\mathrm{round}(20\,n_{\text{layers}}/24)$, which is layer 20 in the 24-layer
+models and the same relative depth otherwise. The LEACE eraser and the
+ablation directions are fit on training-split texts only. The prospective arm
+instead selects, from training-side texts alone, the layer whose direction
+projection most reduces training-side \cued{}.
+
 \subsection{Overall-Accuracy Cost}
 \label{app:repaircost}
 Table~\ref{tab:repaircost} reports mean post-repair overall accuracy next to
@@ -908,7 +873,7 @@ worst, identical to ranking by visible failure), by assigned $\rho$
 realized gain (oracle). Repairing the top 15: random $+0.091$, \cued{}
 $+0.200$, headroom $+0.201$, highest-$\rho$ $+0.201$, oracle $+0.205$
 (per-cell \cued{} selections $+0.303/+0.116/+0.182$ against oracle
-$+0.307/+0.118/+0.189$). At this budget selection is chiefly correlation-level identification, consistent with the fragile fixed-recipe effect
+$+0.307/+0.118/+0.189$). At this budget, selection is chiefly correlation-level identification, consistent with the fragile fixed-recipe effect
 (\S\ref{sec:exact}).
 
 Table~\ref{tab:sweep} reports the full budget sweep. At budgets below one
@@ -977,10 +942,7 @@ models each).}
 \cued{} measured after one of four training epochs already correlates
 $-0.886$ with final worst-group accuracy, and the epoch-1 signal keeps
 $108.4\%$ of the final measurement's $R^2$ ($0.785/0.724$). It is not,
-however, a useful early-warning tool. Epoch-1 overall accuracy predicts final
-worst-group accuracy equally well ($r{=}{+}0.875$), and after cell fixed
-effects and exact $\rho$ control no epoch-1 signal, including \cued{}, adds
-predictive value ($\Delta R^2{=}0.000$, $p{=}0.65$), because within a stratum
+however, a useful early-warning tool. Epoch-1 overall accuracy predicts final worst-group accuracy equally well ($r{=}{+}0.875$). After cell fixed effects and exact $\rho$ control, no epoch-1 signal, including \cued{}, adds predictive value ($\Delta R^2{=}0.000$, $p{=}0.65$), because within a stratum
 the epoch-1 signals share their variance. Table~\ref{tab:ew} lists all
 predictors.
 
